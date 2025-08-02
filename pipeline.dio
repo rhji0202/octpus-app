@@ -1,0 +1,82 @@
+<mxfile host="65bd71144e">
+    <diagram id="dwlFWgyovyvqJadkwc5E" name="Page-1">
+        <mxGraphModel dx="1121" dy="582" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="9" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="7" target="8">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="__START__" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="35" target="10">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="35" target="12">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="36" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="8" target="35">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="AGENT ROUTER" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="120" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="10" target="37">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="RECOMMEND AGENT" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+                    <mxGeometry x="530" y="320" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="12" target="31">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="39" style="edgeStyle=none;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="12" target="37">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Analytics Agent" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+                    <mxGeometry x="210" y="320" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="" style="group" vertex="1" connectable="0" parent="1">
+                    <mxGeometry x="50" y="430" width="460" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="33">
+                    <mxGeometry width="460" height="260" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="동종업계 정보" style="ellipse;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="33">
+                    <mxGeometry x="30" y="40" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="판매 현황" style="ellipse;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="33">
+                    <mxGeometry x="130" y="40" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="고객 cs 현황" style="ellipse;whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="33">
+                    <mxGeometry x="330" y="40" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="지연된 배송 현황" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="33">
+                    <mxGeometry x="230" y="40" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="상품 판매가 체크" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="33">
+                    <mxGeometry x="230" y="160" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="쿠폰 안내" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="33">
+                    <mxGeometry x="130" y="160" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="29" value="아침 브리핑&lt;div&gt;start_of_day&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="33">
+                    <mxGeometry x="330" y="160" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="30" value="마무리 브리핑&lt;div&gt;end_of_day&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="33">
+                    <mxGeometry x="30" y="160" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="Nodes" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="33">
+                    <mxGeometry x="30" y="10" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="CAFE24 MCP TOOL" style="whiteSpace=wrap;html=1;rounded=1;" vertex="1" parent="1">
+                    <mxGeometry x="340" y="210" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="__END__" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="650" y="440" width="120" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
