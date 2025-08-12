@@ -1,12 +1,11 @@
-# Cafe24 MCP Server Tools
-# 카페24 API MCP 서버 도구 정의
+# Cafe24 MCP Server Service
+# 카페24 API MCP 서버 서비스 계층
 
 import json
 from typing import Dict, Any, Optional
 from datetime import datetime
 import logging
-from cafe24_client import Cafe24APIClient, Cafe24APIError
-from cafe24_config import MCP_SERVER_CONFIG
+from cafe24_repository import cafe24_repository, Cafe24APIError
 
 # Configure file handler for logging
 file_handler = logging.FileHandler('cafe24_mcp.log')
@@ -16,18 +15,11 @@ file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelnam
 logger = logging.getLogger(__name__)
 logger.addHandler(file_handler)
 
-class Cafe24Tools:
-    """카페24 API MCP 도구 클래스"""
+class Cafe24Service:
+    """카페24 API 서비스 클래스"""
     
     def __init__(self):
-        self.client = None
-    
-    async def _get_client(self) -> Cafe24APIClient:
-        """API 클라이언트 인스턴스 반환"""
-        if not self.client:
-            self.client = Cafe24APIClient()
-            await self.client.__aenter__()
-        return self.client
+        self.repository = cafe24_repository
     
     async def _handle_api_error(self, error: Exception) -> Dict[str, Any]:
         """API 에러 처리"""
@@ -50,7 +42,7 @@ class Cafe24Tools:
                 }
             }
     
-    # === 상품 관리 도구 ===
+    # === 상품 관리 서비스 ===
     
     async def get_products_list(
         self,
@@ -71,13 +63,13 @@ class Cafe24Tools:
             상품 목록 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_products(
+            result = await self.repository.get_products(
                 limit=limit,
                 offset=offset,
                 category_no=category_no,
                 product_name=product_name
             )
+
             return {
                 "success": True,
                 "data": result,
@@ -97,8 +89,7 @@ class Cafe24Tools:
             상품 상세 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_product(product_no)
+            result = await self.repository.get_product(product_no)
             return {
                 "success": True,
                 "data": result,
@@ -118,8 +109,7 @@ class Cafe24Tools:
             생성된 상품 정보
         """
         try:
-            client = await self._get_client()
-            result = await client.create_product(product_data)
+            result = await self.repository.create_product(product_data)
             return {
                 "success": True,
                 "data": result,
@@ -140,8 +130,7 @@ class Cafe24Tools:
             수정된 상품 정보
         """
         try:
-            client = await self._get_client()
-            result = await client.update_product(product_no, product_data)
+            result = await self.repository.update_product(product_no, product_data)
             return {
                 "success": True,
                 "data": result,
@@ -151,7 +140,7 @@ class Cafe24Tools:
             logger.error(f"상품 수정 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 주문 관리 도구 ===
+    # === 주문 관리 서비스 ===
     
     async def get_orders_list(
         self,
@@ -174,8 +163,7 @@ class Cafe24Tools:
             주문 목록 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_orders(
+            result = await self.repository.get_orders(
                 limit=limit,
                 offset=offset,
                 start_date=start_date,
@@ -201,8 +189,7 @@ class Cafe24Tools:
             주문 상세 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_order(order_id)
+            result = await self.repository.get_order(order_id)
             return {
                 "success": True,
                 "data": result,
@@ -223,8 +210,7 @@ class Cafe24Tools:
             수정된 주문 정보
         """
         try:
-            client = await self._get_client()
-            result = await client.update_order(order_id, status_data)
+            result = await self.repository.update_order(order_id, status_data)
             return {
                 "success": True,
                 "data": result,
@@ -234,7 +220,7 @@ class Cafe24Tools:
             logger.error(f"주문 상태 수정 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 고객 관리 도구 ===
+    # === 고객 관리 서비스 ===
     
     async def get_customers_list(
         self,
@@ -255,8 +241,7 @@ class Cafe24Tools:
             고객 목록 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_customers(
+            result = await self.repository.get_customers(
                 limit=limit,
                 offset=offset,
                 member_id=member_id,
@@ -281,8 +266,7 @@ class Cafe24Tools:
             고객 상세 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_customer(member_id)
+            result = await self.repository.get_customer(member_id)
             return {
                 "success": True,
                 "data": result,
@@ -292,7 +276,7 @@ class Cafe24Tools:
             logger.error(f"고객 상세 조회 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 카테고리 관리 도구 ===
+    # === 카테고리 관리 서비스 ===
     
     async def get_categories_list(self) -> Dict[str, Any]:
         """카테고리 목록 조회
@@ -301,8 +285,7 @@ class Cafe24Tools:
             카테고리 목록 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_categories()
+            result = await self.repository.get_categories()
             return {
                 "success": True,
                 "data": result,
@@ -322,8 +305,7 @@ class Cafe24Tools:
             카테고리 상세 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_category(category_no)
+            result = await self.repository.get_category(category_no)
             return {
                 "success": True,
                 "data": result,
@@ -333,7 +315,7 @@ class Cafe24Tools:
             logger.error(f"카테고리 상세 조회 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 재고 관리 도구 ===
+    # === 재고 관리 서비스 ===
     
     async def get_inventory_status(self, product_no: int) -> Dict[str, Any]:
         """재고 현황 조회
@@ -345,8 +327,7 @@ class Cafe24Tools:
             재고 현황 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_inventory(product_no)
+            result = await self.repository.get_inventory(product_no)
             return {
                 "success": True,
                 "data": result,
@@ -367,8 +348,7 @@ class Cafe24Tools:
             수정된 재고 정보
         """
         try:
-            client = await self._get_client()
-            result = await client.update_inventory(product_no, inventory_data)
+            result = await self.repository.update_inventory(product_no, inventory_data)
             return {
                 "success": True,
                 "data": result,
@@ -378,7 +358,7 @@ class Cafe24Tools:
             logger.error(f"재고 수정 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 통계 및 분석 도구 ===
+    # === 통계 및 분석 서비스 ===
     
     async def get_sales_statistics(
         self,
@@ -397,8 +377,7 @@ class Cafe24Tools:
             매출 통계 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_sales_statistics(start_date, end_date, group_by)
+            result = await self.repository.get_sales_statistics(start_date, end_date, group_by)
             return {
                 "success": True,
                 "data": result,
@@ -423,8 +402,7 @@ class Cafe24Tools:
             방문자 통계 데이터
         """
         try:
-            client = await self._get_client()
-            result = await client.get_visitor_statistics(start_date, end_date)
+            result = await self.repository.get_visitor_statistics(start_date, end_date)
             return {
                 "success": True,
                 "data": result,
@@ -434,7 +412,7 @@ class Cafe24Tools:
             logger.error(f"방문자 통계 조회 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 종합 대시보드 도구 ===
+    # === 종합 대시보드 서비스 ===
     
     async def get_dashboard_summary(self, date: Optional[str] = None) -> Dict[str, Any]:
         """대시보드 요약 정보 조회
@@ -449,26 +427,29 @@ class Cafe24Tools:
             if not date:
                 date = datetime.now().strftime("%Y-%m-%d")
             
-            client = await self._get_client()
+            # 병렬로 여러 데이터 조회 (repository를 통해)
+            orders = await self.repository.get_orders(limit=100, start_date=date, end_date=date)
+            sales = await self.repository.get_sales_statistics(date, date)
+            visitors = await self.repository.get_visitor_statistics(date, date)
+            products = await self.repository.get_products(limit=10)
             
-            # 병렬로 여러 데이터 조회
-            tasks = [
-                client.get_orders(limit=100, start_date=date, end_date=date),
-                client.get_sales_statistics(date, date),
-                client.get_visitor_statistics(date, date),
-                client.get_products(limit=10)
-            ]
+            dashboard_data = {
+                "orders": orders.get("orders", []),
+                "sales": sales,
+                "visitors": visitors,
+                "recent_products": products.get("products", [])
+            }
 
             return {
                 "success": True,
-                "data": [],
+                "data": dashboard_data,
                 "message": f"{date} 대시보드 요약 조회 완료"
             }
         except Exception as e:
             logger.error(f"대시보드 요약 조회 오류: {e}")
             return await self._handle_api_error(e)
     
-    # === 유틸리티 도구 ===
+    # === 유틸리티 서비스 ===
     
     async def health_check(self) -> Dict[str, Any]:
         """API 연결 상태 확인
@@ -477,8 +458,7 @@ class Cafe24Tools:
             연결 상태 정보
         """
         try:
-            client = await self._get_client()
-            is_healthy = await client.health_check()
+            is_healthy = await self.repository.health_check()
             
             return {
                 "success": True,
@@ -499,8 +479,7 @@ class Cafe24Tools:
             캐시 초기화 결과
         """
         try:
-            if self.client:
-                self.client.clear_cache()
+            self.repository.clear_cache()
             
             return {
                 "success": True,
@@ -513,9 +492,7 @@ class Cafe24Tools:
     
     async def close(self):
         """리소스 정리"""
-        if self.client:
-            await self.client.__aexit__(None, None, None)
-            self.client = None
+        await self.repository.close()
 
-# 전역 도구 인스턴스
-cafe24_tools = Cafe24Tools()
+# 전역 서비스 인스턴스
+cafe24_service = Cafe24Service() 
